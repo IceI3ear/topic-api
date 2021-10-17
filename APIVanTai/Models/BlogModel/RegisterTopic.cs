@@ -47,7 +47,6 @@ namespace APIBlog.Models
         [ForeignKey("UserID")]
         public virtual UserProfile UserProfile { get; set; }
 
-        [ForeignKey("StudentID")]
         public virtual AspNetUser Student { get; set; }
     }
 
@@ -65,6 +64,8 @@ namespace APIBlog.Models
 
         [Display(Name = "Sinh viên")]
         public string StudentID { get; set; }
+        [Display(Name = "Sinh viên")]
+        public int TeacherID { get; set; }
 
         [Display(Name = "Khoa")]
         public int SpecialityID { get; set; }

@@ -16,6 +16,7 @@ namespace APIBlog.Models
 
         [Display(Name = "Đề tài")]
         public int? TopicID { get; set; }
+        public String Title { get; set; }
 
         [Display(Name = "Ngày bắt đầu")]
         public DateTime? StartDate { get; set; }

@@ -55,12 +55,41 @@ namespace APIVanTai.Controllers
                 {
                     FileLink = registerTopic.FileLink,
                     StudentID = registerTopic.StudentID,
+                    UserID = registerTopic.TeacherID,
+
                     TopicName = registerTopic.TopicName,
                     Description = registerTopic.Description,
                     SpecialityID = registerTopic.SpecialityID
                 };
 
                 db.Set<RegisterTopic>().Add(model);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                check = false;
+            }
+
+            if (!check)
+            {
+                return NotFound("Save not success");
+            }
+
+            return Ok();
+        }
+
+        // GET api/<GetData>/5
+        [HttpPost]
+        [Route("ChangeInfoTopic")]
+        public IActionResult ChangeInfoTopic(RegisterTopic registerTopic)
+        {
+            var check = true;
+            try
+            {
+                var regis = db.RegisterTopics.Where(x => x.ID == registerTopic.ID).FirstOrDefault();
+                regis.Description = registerTopic.Description;
+                regis.LinkFile = registerTopic.LinkFile;
+
                 db.SaveChanges();
             }
             catch (Exception e)

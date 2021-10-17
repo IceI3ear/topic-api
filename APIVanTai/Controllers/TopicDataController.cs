@@ -132,9 +132,7 @@ namespace APIVanTai.Controllers
                 foreach (var point in item)
                 {
                     sum.Point += point.Complete ?? default;
-                    count++;
                 }
-                sum.Point = sum.Point / count;
                 listPoint.Add(sum);
             }
             var test = db.Topics.Where(y => y.UserID == id).FirstOrDefault();
@@ -213,17 +211,17 @@ namespace APIVanTai.Controllers
 
         [HttpPost]
         [Route("CancelTopic")]
-        public IActionResult CancelTopic(int topicID)
+        public IActionResult CancelTopic([FromBody] TopicPost post)
         {
             try
             {
-                var topic = db.Topics.Where(x => x.ID == topicID).FirstOrDefault();
+                var topic = db.Topics.Where(x => x.ID == post.TopicID).FirstOrDefault();
                 topic.StudentID = null;
                 db.SaveChanges();
             }
             catch (Exception e)
             {
-                throw new ArgumentException($"We can't cancel topic for Topic ID: {topicID}. Error: {e}.");
+                throw new ArgumentException($"We can't cancel topic for Topic ID: {post.TopicID}. Error: {e}.");
             }
 
             return Ok();
